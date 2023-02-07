@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-root',
@@ -41,6 +43,35 @@ export class AppComponent {
       "salary": "80000"
     }
 
+
   ]
+  name = 'Angular 5';
+  users = [];
+  editedIndex: any;
+
+  apiUrl = 'https://jsonplaceholder.typicode.com/users';
+
+  GetData() {
+    console.log('data lane ja rhe hain');
+    this.http.get<any[]>(this.apiUrl).subscribe((hululu) => {
+      console.log('ab data aaya');
+      this.users = hululu;
+    });
+    console.log('subscibe ke bad wala line');
+  }
+  deletRow(id) {
+    console.log(id);
+    console.log(this.users);
+  }
+  EditRow(id) {
+    this.editedIndex = id;
+  }
+  ClearData() {
+    this.users = [];
+  }
+
+  constructor(private http: HttpClient) {}
+  ngOnInit() {}
 }
+
 
